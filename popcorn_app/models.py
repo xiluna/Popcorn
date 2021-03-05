@@ -18,4 +18,3 @@ class Genre(FormEnum):
     SCIFI_AND_FANTASY = 'Sci-fi & Fantasy'
     SPORTS = 'Sports'
     THRILLERS = 'Thrillers'
-    TV_SHOWS = 'TV Shows'
