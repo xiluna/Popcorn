@@ -45,6 +45,7 @@ class Movie(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(80), nullable=False)
     release_date = db.Column(db.Date)
+    description = db.Column(db.String(255))
     genre = db.Column(db.Enum(Genre), default=Genre.OTHER)
     rating = db.Column(db.Enum(Rating), default=Rating.ALL)
     photo_url = db.Column(URLType)
