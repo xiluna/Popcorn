@@ -48,6 +48,8 @@ class Movie(db.Model):
     genre = db.Column(db.Enum(Genre), default=Genre.OTHER)
     rating = db.Column(db.Enum(Rating), default=Rating.ALL)
     photo_url = db.Column(URLType)
+    users_who_favorited = db.relationship(
+        'User', secondary='user_movie', back_populates='favorite_movies')
 
 
 class User(db.Model, UserMixin):
@@ -55,12 +57,13 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), nullable=False, unique=True)
     password = db.Column(db.String(200), nullable=False)
-    favorite_movies = db.relationship
+    favorite_movies = db.relationship(
+        'Movie', secondary='user_movie', back_populates='users_who_favorited')
 
 
-favorite_movie_table = db.Table('tags',
-                                db.Column('tag_id', db.Integer, db.ForeignKey(
-                                    'tag.id'), primary_key=True),
-                                db.Column('page_id', db.Integer, db.ForeignKey(
-                                    'page.id'), primary_key=True)
+favorite_books_table = db.Table('user_movie',
+                                db.Column('movie_id', db.Integer,
+                                          db.ForeignKey('movie.id')),
+                                db.Column('user_id', db.Integer,
+                                          db.ForeignKey('user.id'))
                                 )
