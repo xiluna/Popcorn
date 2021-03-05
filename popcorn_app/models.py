@@ -56,7 +56,7 @@ class User(db.Model, UserMixin):
     """User model"""
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), nullable=False, unique=True)
-    password = db.Column(db.String(200), nullable=False)
+    password = db.Column(db.String(255), nullable=False)
     favorite_movies = db.relationship(
         'Movie', secondary='user_movie', back_populates='users_who_favorited')
 
