@@ -52,7 +52,7 @@ def movie_detail(movie_id):
 
         flash('Movie was updated successfully.')
         return redirect(url_for('main.movie_detail', movie_id=movie_id))
-    return render_template('book_detail.html', movie=movie, form=form)
+    return render_template('movie_detail.html', movie=movie, form=form)
 
 
 @main.route('/profile/<username>')
@@ -72,4 +72,18 @@ def favorite_movie(movie_id):
         db.session.add(current_user)
         db.session.commit()
         flash('Movie added to favorites.')
+    return redirect(url_for('main.movie_detail', movie_id=movie_id))
+
+
+@main.route('/unfavorite/<movie_id>', methods=['POST'])
+@login_required
+def unfavorite_movie(movie_id):
+    movie = Movie.query.get(movie_id)
+    if movie not in current_user.favorite_movies:
+        flash('Movie not in favorites.')
+    else:
+        current_user.favorite_movies.remove(movie)
+        db.session.add(current_user)
+        db.session.commit()
+        flash('Movie removed from favorites.')
     return redirect(url_for('main.movie_detail', movie_id=movie_id))
