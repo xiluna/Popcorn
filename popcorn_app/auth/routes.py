@@ -1,11 +1,11 @@
 from flask import Blueprint, request, render_template, redirect, url_for, flash
-from flask_login import login_user, logout_user, login_required, current_user
+from flask_login import login_user, logout_user, login_required
 
 from popcorn_app.models import User
 from popcorn_app.auth.forms import SignUpForm, LoginForm
 from popcorn_app import bcrypt
 
-from popcorn_app import app, db
+from popcorn_app import db
 
 auth = Blueprint("auth", __name__)
 
@@ -26,3 +26,22 @@ def signup():
         return redirect(url_for('auth.login'))
     print(form.errors)
     return render_template('signup.html', form=form)
+
+
+@auth.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data).first()
+        login_user(user, remember=True)
+        next_page = request.args.get('next')
+        return redirect(next_page if next_page else url_for('main.homepage'))
+    print(form.errors)
+    return render_template('login.html', form=form)
+
+
+@auth.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('main.home'))
