@@ -1,10 +1,9 @@
 from flask import Blueprint, request, render_template, redirect, url_for, flash
-from flask_login import login_user, logout_user, login_required, current_user
+from flask_login import login_required, current_user
 from datetime import date, datetime
 from popcorn_app.models import Movie, User
 from popcorn_app.main.forms import MovieForm
-from popcorn_app import bcrypt
-from popcorn_app import app, db
+from popcorn_app import db
 
 main = Blueprint("main", __name__)
 
@@ -60,3 +59,17 @@ def movie_detail(movie_id):
 def profile(username):
     user = User.query.filter_by(username=username).one()
     return render_template('profile.html', user=user)
+
+
+@main.route('/favorite/<movie_id>', methods=['POST'])
+@login_required
+def favorite_movie(movie_id):
+    movie = Movie.query.get(movie_id)
+    if movie in current_user.favorite_movies:
+        flash('Movie already in favorites.')
+    else:
+        current_user.favorite_movies.append(movie)
+        db.session.add(current_user)
+        db.session.commit()
+        flash('Movie added to favorites.')
+    return redirect(url_for('main.movie_detail', movie_id=movie_id))
