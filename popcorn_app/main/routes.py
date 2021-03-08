@@ -43,7 +43,6 @@ def movie_detail(movie_id):
         movie.title = form.title.data
         movie.release_date = form.release_date.data
         movie.description = form.description.data
-        movie.audience = form.audience.data
         movie.genre = form.genre.data
         movie.rating = form.rating.data
         movie.photo_url = form.photo_url.data
