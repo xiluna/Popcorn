@@ -10,7 +10,7 @@ class MovieForm(FlaskForm):
     title = StringField('Movie Title',
                         validators=[DataRequired(), Length(min=1, max=80)])
     description = TextAreaField('Movie Description')
-    release_date = DateField('Date Published')
+    release_date = DateField('Release Date')
     genre = SelectField('Genre', choices=Genre.choices())
     rating = SelectField('Rating', choices=Rating.choices())
     photo_url = StringField('Photo', validators=[URL()])

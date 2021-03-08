@@ -16,6 +16,7 @@ class FormEnum(enum.Enum):
 
 class Genre(FormEnum):
     """Categories of Movie Genres"""
+    OTHER = 'Other'
     ACTION_AND_ADVENTURE = 'Action & Adventure'
     ANIME = 'Anime'
     CHILDREN_AND_FAMILY = 'Children & Family'
@@ -28,16 +29,15 @@ class Genre(FormEnum):
     SCIFI_AND_FANTASY = 'Sci-fi & Fantasy'
     SPORTS = 'Sports'
     THRILLERS = 'Thrillers'
-    OTHER = 'Other'
 
 
 class Rating(FormEnum):
     """Types of Ratings"""
+    ALL = 'All'
     G = 'G'
     PG = 'PG'
     PG_13 = 'PG-13'
     R = 'R'
-    ALL = 'All'
 
 
 class Movie(db.Model):
