@@ -14,4 +14,4 @@ class MovieForm(FlaskForm):
     genre = SelectField('Genre', choices=Genre.choices())
     rating = SelectField('Rating', choices=Rating.choices())
     photo_url = StringField('Photo', validators=[URL()])
-    submit = SubmitField("Create")
+    submit = SubmitField("Submit")
