@@ -21,14 +21,14 @@ class Genre(FormEnum):
     ANIME = 'Anime'
     CHILDREN_AND_FAMILY = 'Children & Family'
     CLASSIC = 'Classic'
-    DOCUMENTARIES = 'Documentaries'
-    DRAMAS = 'Dramas'
+    DOCUMENTARY = 'documentary'
+    DRAMA = 'Drama'
     HORROR = 'Horror'
     MUSIC = 'Music'
     ROMANTIC = 'Romantic'
     SCIFI_AND_FANTASY = 'Sci-fi & Fantasy'
     SPORTS = 'Sports'
-    THRILLERS = 'Thrillers'
+    THRILLER = 'Thriller'
 
 
 class Rating(FormEnum):
