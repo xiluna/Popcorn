@@ -1,39 +1,46 @@
 {% extends 'base.html' %} {% block content %}
 <div class="py-5 bg-light">
   <div class="container">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+      {% for movie in all_movies %}
       <div class="col">
-        <div class="card shadow-sm">
-          <svg
+        <div class="card h100 shadow-sm">
+          <img
+            src="{{movie.photo_url}}"
             class="bd-placeholder-img card-img-top"
+            alt="image"
             width="100%"
             height="225"
-            xmlns="http://www.w3.org/2000/svg"
-            role="img"
-            aria-label="Placeholder: Thumbnail"
-            preserveAspectRatio="xMidYMid slice"
-            focusable="false"
-          >
-            <title>Placeholder</title>
-            <rect width="100%" height="100%" fill="#55595c" />
-            <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-          </svg>
-
+          />
           <div class="card-body">
-            <p class="card-text">
-              This is a wider card with supporting text below as a natural lead-in to additional
-              content. This content is a little bit longer.
+            <h4 class="card-text">{{movie.title}}</h4>
+            <p class="card-text lead">
+              {{movie.release_date}} | {{movie.rating}} | {{movie.genre}}
             </p>
+            <p class="card-text">{{movie.description}}</p>
             <div class="d-flex justify-content-between align-items-center">
               <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                <a href="/movie/{{ movie.id }}" class="btn btn-sm btn-outline-secondary">View</a>
+                {% if current_user.is_authenticated %} {% if movie not in
+                current_user.favorite_movies %}
+                <form action="/favorite/{{ movie.id }}" method="POST">
+                  <input class="btn btn-sm btn-outline-secondary" type="submit" value="Favorite" />
+                </form>
+                {% else %}
+                <form action="/unfavorite/{{ movie.id }}" method="POST">
+                  <input
+                    class="btn btn-sm btn-outline-secondary"
+                    type="submit"
+                    value="Unfavorite"
+                  />
+                </form>
+                {% endif %} {% endif %}
               </div>
-              <small class="text-muted">9 mins</small>
             </div>
           </div>
         </div>
       </div>
+      {% endfor %}
     </div>
   </div>
 </div>

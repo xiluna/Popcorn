@@ -1,1 +1,31 @@
-{% extends 'base.html' %} {% block content %} {% endblock %}
+{% extends 'base.html' %} {% block content %}
+<div class="py-5 bg-light">
+  <div class="container">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-3">
+      <div class="col">
+        <div class="card h-100 shadow-sm">
+          <h3 class="text-center">{{ user.username }}'s profile.</h3>
+          <div class="card-body">
+            <h4 class="card-text">Username:</h4>
+            <p>{{user.username}}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="card h-100 px-3 py-3 shadow-sm">
+          <h3 class="text-center">Favorites</h3>
+          <div class="list-group">
+            {% for movie in user.favorite_movies %}
+            <a href="/movie/{{ movie.id }}" class="list-group-item list-group-item-action"
+              >{{ movie.title }}</a
+            >
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
