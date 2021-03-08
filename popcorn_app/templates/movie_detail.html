@@ -19,8 +19,17 @@
             <p class="card-text">{{movie.description}}</p>
             <div class="d-flex justify-content-between align-items-center">
               <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">Favorite</button>
+                <a href="/movie/{{ movie.id }}" class="btn btn-sm btn-outline-secondary">View</a>
+                {% if current_user.is_authenticated %} {% if movie not in
+                current_user.favorite_movies %}
+                <form action="/favorite/{{ movie.id }}" method="POST">
+                  <input class="btn btn-sm btn-outline-secondary" type="submit" value="Favorite" />
+                </form>
+                {% else %}
+                <form action="/unfavorite/{{ movie.id }}" method="POST">
+                  <input class="btn btn-sm btn-secondary" type="submit" value="Unfavorite" />
+                </form>
+                {% endif %} {% endif %}
               </div>
             </div>
           </div>
