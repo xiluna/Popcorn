@@ -10,7 +10,7 @@
             class="bd-placeholder-img card-img-top"
             alt="image"
             width="100%"
-            height="225"
+            height="400"
           />
           <div class="card-body">
             <h4 class="card-text">{{movie.title}}</h4>
@@ -28,11 +28,7 @@
                 </form>
                 {% else %}
                 <form action="/unfavorite/{{ movie.id }}" method="POST">
-                  <input
-                    class="btn btn-sm btn-outline-secondary"
-                    type="submit"
-                    value="Unfavorite"
-                  />
+                  <input class="btn btn-sm btn-secondary" type="submit" value="Unfavorite" />
                 </form>
                 {% endif %} {% endif %}
               </div>
